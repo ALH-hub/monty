@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define DELIM " \n\t
+
+#define DELIM " \n\t"
 #define STACK 1
 #define QUEUE 0
 
@@ -51,10 +52,30 @@ void monty_add(stack_t **stack, unsigned int line_number);
 void monty_nop(stack_t **stack, unsigned int line_number);
 
 void (*get_opcode(char *opcode)(stack_t **stack, unsigned int line_number));
-char **tokenize(char *line);
+void free_toks(void);
+void run_monty(FILE *script);
+unsigned int token_arr_len(void);
+int is_empty_line(char *line, char *delims);
+
+char **strtow(char *str, char *delims);
+int is_delim(char ch, char *delims);
+int get_word_length(char *str, char *delims);
+int get_word_count(char *str, char *delims);
+char *get_next_word(char *str, char *delims);
 
 int check_mode(stack_t **stack);
 int init_s(stack_t **stack);
 void free_s(stack_t **stack);
+
+int usage_error(void);
+int malloc_error(void);
+int f_open_error(char *filename);
+int unknown_op_error(char *opcode, unsigned int line_number);
+int no_int_error(unsigned int line_number);
+int pop_error(unsigned int line_number);
+int pint_error(unsigned int line_number);
+int short_stack_error(unsigned int line_number, char *op);
+int div_error(unsigned int line_number);
+int pchar_error(unsigned int line_number, char *message);
 
 #endif
