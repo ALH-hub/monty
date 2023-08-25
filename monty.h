@@ -1,13 +1,14 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 
-#define DELIM " \n\t"
-#define STACK 1
-#define QUEUE 0
+#define STACK 0
+#define QUEUE 1
+#define DELIMS " \n\t"
 
 extern char **op_toks;
 
@@ -18,14 +19,13 @@ extern char **op_toks;
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO
+ * for stack, queues, LIFO, FIFO Holberton project
  */
-
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -34,14 +34,22 @@ typedef struct stack_s
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO
+ * for stack, queues, LIFO, FIFO Holberton project
  */
-
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+	char *opcode;
+	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
+
+
+void free_s(stack_t **stack);
+int init_stack(stack_t **stack);
+int check_mode(stack_t *stack);
+void free_toks(void);
+unsigned int token_arr_len(void);
+int run_monty(FILE *script_fd);
+void set_op_tok_error(int error_code);
 
 void monty_push(stack_t **stack, unsigned int line_number);
 void monty_pall(stack_t **stack, unsigned int line_number);
@@ -51,21 +59,8 @@ void monty_swap(stack_t **stack, unsigned int line_number);
 void monty_add(stack_t **stack, unsigned int line_number);
 void monty_nop(stack_t **stack, unsigned int line_number);
 
-void (*get_opcode(char *opcode)(stack_t **stack, unsigned int line_number));
-void free_toks(void);
-void run_monty(FILE *script);
-unsigned int token_arr_len(void);
-int is_empty_line(char *line, char *delims);
-
 char **strtow(char *str, char *delims);
-int is_delim(char ch, char *delims);
-int get_word_length(char *str, char *delims);
-int get_word_count(char *str, char *delims);
-char *get_next_word(char *str, char *delims);
-
-int check_mode(stack_t **stack);
-int init_s(stack_t **stack);
-void free_s(stack_t **stack);
+char *get_int(int n);
 
 int usage_error(void);
 int malloc_error(void);

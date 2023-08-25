@@ -1,4 +1,5 @@
 #include "monty.h"
+#include <stdio.h>
 
 void free_toks(void);
 int run_monty(FILE *script);
@@ -47,7 +48,7 @@ void (*get_op_func(char *opcode))(stack_t**, unsigned int)
 		{"pop", monty_pop},
 		{"swap", monty_swap},
 		{"add", monty_add},
-		{"nop", monty_nop}
+		{"nop", monty_nop},
 		{NULL, NULL}
 	};
 	int i;

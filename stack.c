@@ -1,6 +1,6 @@
 #include "monty.h"
 
-int check_mode(stack_t **stack);
+int check_mode(stack_t *stack);
 int init_s(stack_t **stack);
 void free_s(stack_t **stack);
 
@@ -40,9 +40,9 @@ int init_s(stack_t **stack)
 		exit(EXIT_FAILURE);
 	}
 
-	stack->n = STACK;
-	stack->next = NULL;
-	stack->prev = NULL;
+	(*stack)->n = STACK;
+	(*stack)->next = NULL;
+	(*stack)->prev = NULL;
 
 	(*stack) = s;
 	return (1);
@@ -55,9 +55,11 @@ int init_s(stack_t **stack)
  * Return: 1 on success, 0 else
  */
 
-int check_mode(stack_t **stack)
+int check_mode(stack_t *stack)
 {
-	if ((*stack)->n == STACK)
+	if (stack->n == STACK)
 		return (1);
-	return (0);
+	if (stack->n == QUEUE)
+		return (0);
+	return (2);
 }
